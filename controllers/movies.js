@@ -5,7 +5,7 @@ const HaveNoRightError = require('../errors/have-no-right');
 const NotFoundError = require('../errors/not-found-err');
 const BadRequestError = require('../errors/bad-request-err');
 
-const getCards = (req, res, next) => {
+const getMovies = (req, res, next) => {
   cardsModel.find({})
     .then((cards) => {
       res.send(cards);
@@ -13,7 +13,7 @@ const getCards = (req, res, next) => {
     .catch(next);
 };
 
-const creatCard = (req, res, next) => {
+const saveMovie = (req, res, next) => {
   cardsModel.create({
     name: req.body.name,
     link: req.body.link,
@@ -30,7 +30,7 @@ const creatCard = (req, res, next) => {
     });
 };
 
-const deleteCard = (req, res, next) => {
+const deleteMovie = (req, res, next) => {
   cardsModel.findById(req.params.cardId)
     .orFail(() => {
       throw new NotFoundError('Такой карточки не существует');
@@ -51,44 +51,8 @@ const deleteCard = (req, res, next) => {
     });
 };
 
-const likeCard = (req, res, next) => {
-  cardsModel.findByIdAndUpdate(
-    req.params.cardId,
-    { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
-    { new: true },
-  ).orFail(() => {
-    throw new NotFoundError('Такой карточки не существует');
-  })
-    .then((card) => res.send(card))
-    .catch((err) => {
-      if (err instanceof mongoose.Error.CastError) {
-        return next(new BadRequestError('Введены некорректные данные'));
-      }
-      return next(err);
-    });
-};
-
-const dislikeCard = (req, res, next) => {
-  cardsModel.findByIdAndUpdate(
-    req.params.cardId,
-    { $pull: { likes: req.user._id } }, // убрать _id из массива
-    { new: true },
-  ).orFail(() => {
-    throw new NotFoundError('Такой карточки не существует');
-  })
-    .then((card) => res.send(card))
-    .catch((err) => {
-      if (err instanceof mongoose.Error.CastError) {
-        return next(new BadRequestError('Введены некорректные данные'));
-      }
-      return next(err);
-    });
-};
-
 module.exports = {
-  getCards,
-  creatCard,
-  deleteCard,
-  likeCard,
-  dislikeCard,
+  getMovies,
+  saveMovie,
+  deleteMovie,
 };
