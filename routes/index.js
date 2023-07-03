@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const auth = require('../middlewares/auth');
-const { validateUserBody } = require('../middlewares/validate');
+const { validateUserBody, validateLoginBody } = require('../middlewares/validate');
 const NotFoundError = require('../errors/not-found-err');
 
 const userRouter = require('./users');
@@ -9,7 +9,7 @@ const { login, createUser } = require('../controllers/users');
 
 router.post('/signup', validateUserBody, createUser);
 
-router.post('/signin', validateUserBody, login);
+router.post('/signin', validateLoginBody, login);
 
 router.use(auth);
 

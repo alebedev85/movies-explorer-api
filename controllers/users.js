@@ -17,33 +17,6 @@ const getUsers = (req, res, next) => {
     .catch(next);
 };
 
-const getUserById = (req, res, next) => {
-  usersModel.findById(req.params.userId)
-    .orFail(() => {
-      throw new NotFoundError('Пользователь не найден');
-    })
-    .then((user) => {
-      res.send(user);
-    })
-    .catch((err) => {
-      if (err instanceof mongoose.Error.CastError) {
-        return next(new BadRequestError('Введены некорректные данные'));
-      }
-      return next(err);
-    });
-};
-
-const getMyUser = (req, res, next) => {
-  usersModel.findById(req.user._id)
-    .orFail(() => {
-      throw new NotFoundError('Пользователь не найден');
-    })
-    .then((user) => {
-      res.send(user);
-    })
-    .catch((err) => next(err));
-};
-
 /**
  *Функция регистрации нового пользователя, принимет данные пользователя,
   хеширует и сохраняет хешированный пароль
@@ -94,22 +67,15 @@ const edithUser = (req, res, next) => {
     });
 };
 
-const editAvatarhUser = (req, res, next) => {
-  usersModel.findByIdAndUpdate(req.user._id, {
-    avatar: req.body.avatar,
-  }, { new: true, runValidators: true })
+const getMyUser = (req, res, next) => {
+  usersModel.findById(req.user._id)
     .orFail(() => {
       throw new NotFoundError('Пользователь не найден');
     })
     .then((user) => {
       res.send(user);
     })
-    .catch((err) => {
-      if (err instanceof mongoose.Error.ValidationError) {
-        return next(new BadRequestError('Введены некорректные данные'));
-      }
-      return next(err);
-    });
+    .catch((err) => next(err));
 };
 
 /**
@@ -145,9 +111,7 @@ const login = (req, res, next) => {
 module.exports = {
   getUsers,
   getMyUser,
-  getUserById,
   createUser,
   edithUser,
-  editAvatarhUser,
   login,
 };
