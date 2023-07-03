@@ -3,31 +3,31 @@ const { regexHttp, regexEmail } = require('../utils/constants');
 
 const validateUserBody = celebrate({
   body: Joi.object().keys({
+    name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().pattern(regexEmail),
-    password: Joi.string().required(),
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().pattern(regexHttp),
   }),
 });
 
 const validateEditUserInfo = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    about: Joi.string().required().min(2).max(30),
-  }),
-});
-
-const validateEditUserAvatar = celebrate({
-  body: Joi.object().keys({
-    avatar: Joi.string().required().pattern(regexHttp),
+    email: Joi.string().required().pattern(regexEmail),
   }),
 });
 
 const validateCardBody = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().pattern(regexHttp),
+    country: Joi.string().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
+    year: Joi.string().required(),
+    description: Joi.string().required(),
+    image: Joi.string().required().pattern(regexHttp),
+    trailerLink: Joi.string().required().pattern(regexHttp),
+    thumbnail: Joi.string().required().pattern(regexHttp),
+    movieId: Joi.number().required(),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
   }),
 });
 
@@ -49,7 +49,6 @@ module.exports = {
   validateUserBody,
   validateCardBody,
   validateEditUserInfo,
-  validateEditUserAvatar,
   validationUserId,
   validationCardId,
 };

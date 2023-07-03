@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const cardSchema = new mongoose.Schema({
+const moviesSchema = new mongoose.Schema({
   country: {
     type: String,
     required: [true, 'Поле "country" должно быть заполнено'],
@@ -65,4 +65,4 @@ const cardSchema = new mongoose.Schema({
   },
 }, { versionKey: false });
 
-module.exports = mongoose.model('card', cardSchema);
+module.exports = mongoose.model('card', moviesSchema);
