@@ -10,6 +10,7 @@ router.get('/', moviesController.getMovies);
 // nameRU, nameEN и thumbnail, movieId
 router.post('/', validateMovieBody, moviesController.saveMovie);
 
+// удаляет фильм по id
 router.delete('/:movieId', validationMovieId, moviesController.deleteMovie);
 
 module.exports = router;

@@ -6,6 +6,7 @@ const { errors } = require('celebrate');
 const cors = require('cors');
 
 const mongoose = require('mongoose');
+const { limiter } = require('./middlewares/rateLimit');
 const router = require('./routes');
 const errorHandler = require('./middlewares/errorHandler');
 
@@ -18,6 +19,8 @@ mongoose.connect(MONGO_URL)
   .catch((err) => console.log('Ошибка подключения к БД', err));
 
 const app = express();
+
+app.use(limiter);
 app.use(cors());
 
 app.use(helmet());
