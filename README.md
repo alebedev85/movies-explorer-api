@@ -3,6 +3,6 @@
 
 IP: 51.250.107.184
 
-Frontend andrey.movies-explorer.nomoreparties.sbs;
+Frontend https://andrey.movies-explorer.nomoreparties.sbs;
 
 Backend https://api.andrey.movies.nomoreparties.sbs;
