@@ -15,16 +15,25 @@ const getMovies = (req, res, next) => {
 
 const saveMovie = (req, res, next) => {
   cardsModel.create({
-    name: req.body.name,
-    link: req.body.link,
+    country: req.body.country,
+    director: req.body.director,
+    duration: req.body.duration,
+    year: req.body.year,
+    description: req.body.description,
+    image: req.body.image,
+    trailerLink: req.body.trailerLink,
+    thumbnail: req.body.thumbnail,
     owner: req.user._id,
+    movieId: req.body.movieId,
+    nameRU: req.body.nameRU,
+    nameEN: req.body.nameEN,
   })
-    .then((users) => {
-      res.status(201).send(users);
+    .then((movie) => {
+      res.status(201).send(movie);
     })
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        return next(new BadRequestError('Введены некорректные данные'));
+        return next(new BadRequestError('Введены некорректные данные', err));
       }
       return next(err);
     });

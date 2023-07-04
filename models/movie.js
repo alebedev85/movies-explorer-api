@@ -19,7 +19,7 @@ const moviesSchema = new mongoose.Schema({
     required: [true, 'Поле "year" должно быть заполнено'],
   },
   description: {
-    type: Number,
+    type: String,
     required: [true, 'Поле "description" должно быть заполнено'],
   },
   image: {
@@ -56,11 +56,11 @@ const moviesSchema = new mongoose.Schema({
     required: [true, 'Поле "movieId" должно быть заполнено'],
   },
   nameRU: {
-    type: Number,
+    type: String,
     required: [true, 'Поле "nameRU" должно быть заполнено'],
   },
   nameEN: {
-    type: Number,
+    type: String,
     required: [true, 'Поле "nameEN" должно быть заполнено'],
   },
 }, { versionKey: false });

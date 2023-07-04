@@ -22,7 +22,7 @@ const getUsers = (req, res, next) => {
   хеширует и сохраняет хешированный пароль
  * @param {*} req
  * @param {*} res
- * @returns оюъект с токеном токен
+ * @returns оюъект с данными пользователя без пороля
  */
 const createUser = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
@@ -48,10 +48,17 @@ const createUser = (req, res, next) => {
     });
 };
 
+/**
+ *Функция редактирования данных пользователя,
+ *берёт из запроса новые имя и email
+ * @param {*} req
+ * @param {*} res
+ * @returns оюъект с новыми данными пользователя
+ */
 const edithUser = (req, res, next) => {
   usersModel.findByIdAndUpdate(req.user._id, {
     name: req.body.name,
-    about: req.body.about,
+    email: req.body.email,
   }, { new: true, runValidators: true })
     .orFail(() => {
       throw new NotFoundError('Пользователь не найден');
@@ -67,6 +74,12 @@ const edithUser = (req, res, next) => {
     });
 };
 
+/**
+ *Функция получения данных текущего пользователя
+ * @param {*} req
+ * @param {*} res
+ * @returns оюъект с данных текущего пользователя
+ */
 const getMyUser = (req, res, next) => {
   usersModel.findById(req.user._id)
     .orFail(() => {
@@ -83,7 +96,7 @@ const getMyUser = (req, res, next) => {
   ищет пользователя по email, проверяет пороль и генерирует токен
  * @param {*} req
  * @param {*} res
- * @returns оюъект с токеном токен
+ * @returns оюъект с токеном
  */
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -109,9 +122,9 @@ const login = (req, res, next) => {
 };
 
 module.exports = {
+  createUser,
   getUsers,
   getMyUser,
-  createUser,
   edithUser,
   login,
 };

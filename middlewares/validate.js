@@ -1,6 +1,7 @@
 const { celebrate, Joi } = require('celebrate');
 const { regexHttp, regexEmail } = require('../utils/constants');
 
+// вылидация создания нового пользователя
 const validateUserBody = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
@@ -9,6 +10,7 @@ const validateUserBody = celebrate({
   }),
 });
 
+// вылидация логирования пользователя
 const validateLoginBody = celebrate({
   body: Joi.object().keys({
     password: Joi.string().required(),
@@ -16,6 +18,7 @@ const validateLoginBody = celebrate({
   }),
 });
 
+// вылидация редактирования пользователя
 const validateEditUserInfo = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
@@ -23,7 +26,8 @@ const validateEditUserInfo = celebrate({
   }),
 });
 
-const validateCardBody = celebrate({
+// вылидация добавления нового фильма
+const validateMovieBody = celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
     director: Joi.string().required(),
@@ -39,7 +43,8 @@ const validateCardBody = celebrate({
   }),
 });
 
-const validationCardId = celebrate({
+// валидация id фильма
+const validationMovieId = celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().required().alphanum().hex()
       .length(24),
@@ -48,8 +53,8 @@ const validationCardId = celebrate({
 
 module.exports = {
   validateUserBody,
-  validateCardBody,
+  validateMovieBody,
   validateEditUserInfo,
-  validationCardId,
+  validationMovieId,
   validateLoginBody,
 };
