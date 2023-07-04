@@ -6,9 +6,9 @@ const NotFoundError = require('../errors/not-found-err');
 const BadRequestError = require('../errors/bad-request-err');
 
 const getMovies = (req, res, next) => {
-  cardsModel.find({})
-    .then((cards) => {
-      res.send(cards);
+  cardsModel.find({ owner: req.user._id })
+    .then((movies) => {
+      res.send(movies);
     })
     .catch(next);
 };
