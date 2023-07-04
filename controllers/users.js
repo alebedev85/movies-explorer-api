@@ -9,20 +9,12 @@ const NotFoundError = require('../errors/not-found-err');
 const UnauthorizedError = require('../errors/unauthorized-error');
 const BadRequestError = require('../errors/bad-request-err');
 
-const getUsers = (req, res, next) => {
-  usersModel.find({})
-    .then((users) => {
-      res.send(users);
-    })
-    .catch(next);
-};
-
 /**
  *Функция регистрации нового пользователя, принимет данные пользователя,
   хеширует и сохраняет хешированный пароль
  * @param {*} req
  * @param {*} res
- * @returns оюъект с данными пользователя без пороля
+ * @returns объект с данными пользователя без пороля
  */
 const createUser = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
@@ -53,7 +45,7 @@ const createUser = (req, res, next) => {
  *берёт из запроса новые имя и email
  * @param {*} req
  * @param {*} res
- * @returns оюъект с новыми данными пользователя
+ * @returns объект с новыми данными пользователя
  */
 const edithUser = (req, res, next) => {
   usersModel.findByIdAndUpdate(req.user._id, {
@@ -78,7 +70,7 @@ const edithUser = (req, res, next) => {
  *Функция получения данных текущего пользователя
  * @param {*} req
  * @param {*} res
- * @returns оюъект с данных текущего пользователя
+ * @returns объект с данных текущего пользователя
  */
 const getMyUser = (req, res, next) => {
   usersModel.findById(req.user._id)
@@ -96,7 +88,7 @@ const getMyUser = (req, res, next) => {
   ищет пользователя по email, проверяет пороль и генерирует токен
  * @param {*} req
  * @param {*} res
- * @returns оюъект с токеном
+ * @returns объект с токеном
  */
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -123,7 +115,6 @@ const login = (req, res, next) => {
 
 module.exports = {
   createUser,
-  getUsers,
   getMyUser,
   edithUser,
   login,

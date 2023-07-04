@@ -3,7 +3,7 @@ const auth = require('../middlewares/auth');
 const { validateUserBody, validateLoginBody } = require('../middlewares/validate');
 const NotFoundError = require('../errors/not-found-err');
 
-const userRouter = require('./users');
+const usersRouter = require('./users');
 const moviesRouter = require('./movies');
 const { login, createUser } = require('../controllers/users');
 
@@ -13,7 +13,7 @@ router.post('/signin', validateLoginBody, login);
 
 router.use(auth);
 
-router.use('/users', userRouter);
+router.use('/users', usersRouter);
 router.use('/movies', moviesRouter);
 
 router.use((req, res, next) => {
