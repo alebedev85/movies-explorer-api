@@ -46,7 +46,7 @@ const validateMovieBody = celebrate({
 // валидация id фильма
 const validationMovieId = celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().required().alphanum().hex()
+    movieId: Joi.string().required().alphanum().hex()
       .length(24),
   }),
 });

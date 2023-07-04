@@ -40,16 +40,16 @@ const saveMovie = (req, res, next) => {
 };
 
 const deleteMovie = (req, res, next) => {
-  cardsModel.findById(req.params.cardId)
+  cardsModel.findById(req.params.movieId)
     .orFail(() => {
-      throw new NotFoundError('Такой карточки не существует');
+      throw new NotFoundError('Такакого фильма нет в вашем списке');
     })
-    .then((card) => {
-      if (card.owner.toString() !== req.user._id) {
-        throw new HaveNoRightError('Вы не можете удалить чужую карточку');
+    .then((movie) => {
+      if (movie.owner.toString() !== req.user._id) {
+        throw new HaveNoRightError('Вы не можете удалить чужой фильм');
       }
-      card.deleteOne()
-        .then(() => res.send({ message: 'Пост удалён' }))
+      movie.deleteOne()
+        .then(() => res.send({ message: 'Фильм удалён' }))
         .catch(next);
     })
     .catch((err) => {

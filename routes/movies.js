@@ -10,6 +10,6 @@ router.get('/', moviesController.getMovies);
 // nameRU, nameEN и thumbnail, movieId
 router.post('/', validateMovieBody, moviesController.saveMovie);
 
-router.delete('/:_id/', validationMovieId, moviesController.deleteMovie);
+router.delete('/:movieId', validationMovieId, moviesController.deleteMovie);
 
 module.exports = router;
