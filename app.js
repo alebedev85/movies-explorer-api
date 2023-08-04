@@ -20,7 +20,7 @@ mongoose.connect(MONGO_URL)
 
 const app = express();
 
-app.use(limiter);
+// app.use(limiter);
 app.use(cors());
 
 app.use(helmet());

@@ -59,6 +59,9 @@ const edithUser = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
+      if (err.code === 11000) {
+        return next(new BadEmailError('Такой email уже используется'));
+      }
       if (err instanceof mongoose.Error.ValidationError) {
         return next(new BadRequestError('Введены некорректные данные'));
       }
