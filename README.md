@@ -18,7 +18,7 @@
 - MongoDB
 - Mongoose
 - ESLint
-- Clebrate & Joi
+- Celebrate & Joi
 - Winston - логирование ошибок & запросов
 
 **Работа с сервером:**
